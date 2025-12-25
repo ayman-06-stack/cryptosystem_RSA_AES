@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptosystème Hybride</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            border-bottom: 3px solid #34495e;
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .navbar-subtitle {
+            font-size: 0.85rem;
+            color: #bdc3c7;
+            margin-top: 0.25rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid #34495e;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: #34495e;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+        }
+
+        .info-box {
+            background-color: #ecf0f1;
+            border-left: 4px solid #3498db;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .step-number {
+            background-color: #2c3e50;
+            color: white;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .card-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .card-description {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 3px;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #34495e;
+        }
+
+        button.secondary {
+            background-color: #7f8c8d;
+        }
+
+        button.secondary:hover {
+            background-color: #95a5a6;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .status-box {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 3px;
+            font-size: 0.9rem;
+        }
+
+        .status-box.hidden {
+            display: none;
+        }
+
+        .key-info {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: #7f8c8d;
+            margin-top: 0.5rem;
+            word-break: break-all;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #2c3e50;
+        }
+
+        .result-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .result-section.hidden {
+            display: none;
+        }
+
+        .result-item {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 0.75rem;
+            border-radius: 3px;
+            margin-bottom: 0.75rem;
+        }
+
+        .result-label {
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #7f8c8d;
+            margin-bottom: 0.25rem;
+        }
+
+        .result-value {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #2c3e50;
+            word-break: break-all;
+        }
+
+        .decrypt-section {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+        }
+
+        .separator {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .separator::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: #ddd;
+        }
+
+        .separator span {
+            background-color: white;
+            padding: 0 1rem;
+            position: relative;
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            text-transform: uppercase;
+        }
+
+        .final-result {
+            text-align: center;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 2rem;
+            border-radius: 3px;
+            margin-top: 1rem;
+        }
+
+        .final-result.hidden {
+            display: none;
+        }
+
+        .final-result-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #155724;
+            margin-bottom: 0.5rem;
+        }
+
+        .final-result-message {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #155724;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div>
+                <h1>Cryptosystème Hybride</h1>
+                <div class="navbar-subtitle">RSA + DH + AES-GCM</div>
+            </div>
+            <div class="nav-links">
+                <a href="/">Accueil</a>
+                <a href="/select_user">Messagerie</a>
+                <!-- <a href="/chat/ayman">ayman</a>
+                <a href="/chat/loukman">loukman</a> -->
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="header">
+            <h1>Démonstration Cryptographique</h1>
+            <p>Test individuel des algorithmes</p>
+        </header>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="step-number">1</div>
+                <h2>Étape 1 : Accord de Clé (DH)</h2>
+            </div>
+            <p class="card-description">Générez un secret mathématique partagé entre ayman et loukman sans jamais l'envoyer sur le réseau.</p>
+            <button onclick="establishDH()" id="dhBtn">Établir le secret partagé</button>
+            <div id="dhStatus" class="status-box hidden">
+                Secret Partagé Diffie-Hellman activé
+                <div id="dhKeyInfo" class="key-info"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="step-number">2</div>
+                <h2>Étape 2 : Chiffrement AES</h2>
+            </div>
+
+            <div class="input-group">
+                <label>Message à protéger</label>
+                <textarea id="msgInput" placeholder="Saisissez votre message secret ici..."></textarea>
+            </div>
+
+            <div class="grid-2">
+                <button onclick="sendEncryptedDH()">Chiffrer via DH (Auto)</button>
+                <div>
+                    <input type="password" id="manualKeyEncrypt" placeholder="Mot de passe personnalisé..." style="margin-bottom: 0.5rem;">
+                    <button class="secondary" onclick="sendEncryptedManual()">Chiffrer via Mot de Passe</button>
+                </div>
+            </div>
+
+            <div id="cipherResult" class="result-section hidden">
+                <div class="result-item">
+                    <div class="result-label">Clé AES utilisée (Aperçu)</div>
+                    <div id="txtKeyUsed" class="result-value"></div>
+                </div>
+                <div class="grid-2">
+                    <div class="result-item">
+                        <div class="result-label">Texte Chiffré</div>
+                        <div id="txtCipher" class="result-value"></div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Nonce (IV)</div>
+                        <div id="txtNonce" class="result-value"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="decryptSection" class="card decrypt-section hidden">
+            <div class="card-header">
+                <div class="step-number">3</div>
+                <h2>Étape 3 : Déchiffrement</h2>
+            </div>
+
+            <button onclick="decryptMessageDH()">Déchiffrement Automatique (DH)</button>
+
+            <div class="separator">
+                <span>Ou clé manuelle</span>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem;">
+                <input type="password" id="manualKeyDecrypt" placeholder="Entrez le mot de passe..." style="flex: 1;">
+                <button class="secondary" onclick="decryptManual()" style="width: auto; padding: 0.75rem 1.5rem;">Valider</button>
+            </div>
+
+            <div id="finalResult" class="final-result hidden">
+                <div class="final-result-label">Message Original Retrouvé</div>
+                <div id="txtDecrypted" class="final-result-message"></div>
+            </div>
+        </div>
+
+      
+    </div>
+
+    <script>
+        let currentCipherData = null;
+
+        async function establishDH() {
+            try {
+                const res = await fetch('/exchange_dh');
+                const data = await res.json();
+                document.getElementById('dhStatus').classList.remove('hidden');
+                document.getElementById('dhKeyInfo').innerText = "Public Key Info: " + data.ayman_pub_dh.substring(0, 60) + "...";
+                const btn = document.getElementById('dhBtn');
+                btn.innerHTML = 'Secret DH Établi';
+                btn.style.backgroundColor = '#27ae60';
+            } catch (err) { alert("Erreur lors de l'échange DH"); }
+        }
+
+        async function sendEncryptedDH() {
+            const message = document.getElementById('msgInput').value;
+            if(!message) return alert("Saisissez un message");
+            await performEncryption('/secure_send', {message: message});
+        }
+
+        async function sendEncryptedManual() {
+            const message = document.getElementById('msgInput').value;
+            const key = document.getElementById('manualKeyEncrypt').value;
+            if(!message || !key) return alert("Saisissez le message ET le mot de passe");
+            await performEncryption('/encrypt_manual', {message: message, manual_key: key});
+        }
+
+        async function performEncryption(url, body) {
+            try {
+                const res = await fetch(url, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(body)
+                });
+                const data = await res.json();
+                currentCipherData = data;
+                
+                localStorage.setItem('lastCipher', JSON.stringify(data));
+                
+                document.getElementById('cipherResult').classList.remove('hidden');
+                document.getElementById('decryptSection').classList.remove('hidden');
+                document.getElementById('txtCipher').innerText = data.ciphertext;
+                document.getElementById('txtNonce').innerText = data.nonce;
+                document.getElementById('txtKeyUsed').innerText = data.encryption_key || "DH";
+
+                window.open('/receiver', 'ReceiverWindow', 'width=600,height=700');
+
+            } catch (err) { alert("Erreur de chiffrement"); }
+        }
+
+        async function decryptMessageDH() {
+            if(!currentCipherData) return;
+            try {
+                const res = await fetch('/decrypt', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(currentCipherData)
+                });
+                showResult(await res.json());
+            } catch (err) { alert("Le déchiffrement DH a échoué."); }
+        }
+
+        async function decryptManual() {
+            const key = document.getElementById('manualKeyDecrypt').value;
+            if(!key) return alert("Saisissez le mot de passe de déchiffrement");
+            try {
+                const res = await fetch('/decrypt_manual', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({...currentCipherData, manual_key: key})
+                });
+                showResult(await res.json());
+            } catch (err) { alert("Mot de passe incorrect !"); }
+        }
+
+        function showResult(data) {
+            if(data.error) return alert("Erreur: " + data.error);
+            document.getElementById('finalResult').classList.remove('hidden');
+            document.getElementById('txtDecrypted').innerText = data.message;
+        }
+    </script>
+</body>
+</html>
